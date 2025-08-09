@@ -6,8 +6,10 @@ import Login from "./pages/Login";
 
 function App() {
   return (
-    <div className="font-lato min-h-screen bg-gray-100">
-      <Navbar />
+    <div className="font-lato">
+      <div className="bg-amber-50 w-full container mx-auto px-4 lg:px-40">
+        <Navbar />
+      </div>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
