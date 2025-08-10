@@ -43,7 +43,7 @@ const AirportSelector: React.FC<AirportSelectorProps> = ({
           className="flex-1 outline-none text-gray-700"
         />
       </div>
-      <div className="overflow-y-auto h-70 max-h-[600px]">
+      <div className="overflow-y-auto h-60 max-h-[600px]">
         {/* Recent Search Header */}
         <div className="px-2 pt-2 text-xs text-gray-400 font-semibold">
           RECENT SEARCH

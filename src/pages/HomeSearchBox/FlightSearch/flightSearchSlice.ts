@@ -189,7 +189,7 @@ const flightSearchSlice = createSlice({
     },
     removeSegment(state, action: PayloadAction<number>) {
       const index = action.payload;
-      if (index >= 2 && index < state.segmentCount) {
+      if (index >= 2 && index <= state.segmentCount) {
         state.fromSegmentLists.splice(index, 1);
         state.toSegmentLists.splice(index, 1);
         state.departureDates.splice(index, 1);
@@ -197,8 +197,8 @@ const flightSearchSlice = createSlice({
         state.segmentCount = Math.max(state.segmentCount - 1, 1);
       } else {
         // Instead of calling setValue reducer, just update value directly here
-        state.value = "return";
-        state.segmentCount = 1;
+        // state.value = "return";
+        // state.segmentCount = 1;
       }
     },
   },

@@ -45,6 +45,9 @@ const SearchBox = () => {
                   type="from"
                 />
                 {/* Swap icon or other UI could go here */}
+                <div className="z-10 absolute top-9 right-[-20px] bg-[#fff] shadow-md p-4 rounded-3xl h-10 w-10 flex items-center justify-center cursor-pointer">
+                  <span className="text-[#008cff]">⇌</span>
+                </div>
               </div>
 
               {/* To */}
@@ -70,7 +73,11 @@ const SearchBox = () => {
               )}
               {/* Travelers/Classes Selector - usually outside segment mapping */}
               {i === 0 && (
-                <div className={`${selected === "multicity" ? "col-span-5" : "col-span-3"}`}>
+                <div
+                  className={`${
+                    selected === "multicity" ? "col-span-5" : "col-span-3"
+                  }`}
+                >
                   <TravelersClassSelector
                     travellers={1}
                     classType="Economy/Premium"
@@ -81,7 +88,11 @@ const SearchBox = () => {
                 </div>
               )}
               {i !== 0 && (
-                <div className={`${selected === "multicity" ? "col-span-5" : "col-span-3"}`}>
+                <div
+                  className={`${
+                    selected === "multicity" ? "col-span-5" : "col-span-3"
+                  }`}
+                >
                   <div className="flex justify-between items-center px-8 h-28 rounded-tr-lg rounded-br-lg border border-[#e7e7e7] ">
                     <div
                       onClick={() => dispatch(incrementSegmentCount())}
@@ -95,7 +106,7 @@ const SearchBox = () => {
                         onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                           dispatch(removeSegment(i));
                         }}
-                        className="bg-gray-400 flex justify-center items-center rounded-3xl h-[28px] w-[28px] ml-8"
+                        className="bg-gray-400 flex justify-center items-center rounded-3xl h-[28px] w-[28px] ml-8 cursor-pointer"
                       >
                         <IoIosClose className="text-white text-2xl" />
                       </div>

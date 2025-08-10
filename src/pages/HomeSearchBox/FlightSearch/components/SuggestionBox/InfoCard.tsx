@@ -61,7 +61,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
           style={{
             scrollbarWidth: "thin",
           }}
-          className="absolute w-full left-0"
+          className="absolute w-full left-0 z-20"
         >
           <AirportSelector
             type={type}
