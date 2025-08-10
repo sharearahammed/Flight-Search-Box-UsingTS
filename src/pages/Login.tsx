@@ -1,6 +1,10 @@
-import LoginForm from "../components/LoginForm/LoginForm";
+import LoginForm from '../components/LoginForm/LoginForm';
 
-const Login = ({setIsLoginOpen}) => {
+interface LoginProps {
+  setIsLoginOpen: (value: boolean) => void;
+}
+
+const Login: React.FC<LoginProps> = ({ setIsLoginOpen }) => {
   return (
     <div className="p-4">
       <LoginForm setIsLoginOpen={setIsLoginOpen} />
