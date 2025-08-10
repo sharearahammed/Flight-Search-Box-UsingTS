@@ -1,8 +1,8 @@
-import { useState, useEffect, ChangeEvent } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { FcGoogle } from "react-icons/fc";
-import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import { useState, useEffect, ChangeEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { FcGoogle } from 'react-icons/fc';
+import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 
 interface LoginModalProps {
   setIsLoginOpen: (open: boolean) => void;
@@ -12,19 +12,19 @@ const LoginModal: React.FC<LoginModalProps> = ({ setIsLoginOpen }) => {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const [emailOrMobile, setEmailOrMobile] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [emailOrMobile, setEmailOrMobile] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [agree1, setAgree1] = useState<boolean>(true);
   const [agree2, setAgree2] = useState<boolean>(true);
   const [isValid, setIsValid] = useState<boolean>(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   const validateUsername = (name: string) => /^[a-zA-Z0-9]{3,}$/.test(name);
 
   const validatePassword = (pass: string) =>
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{6,}$/.test(
-      pass
+      pass,
     );
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -32,14 +32,14 @@ const LoginModal: React.FC<LoginModalProps> = ({ setIsLoginOpen }) => {
 
     if (!validateUsername(emailOrMobile)) {
       setError(
-        "Username must be at least 3 characters and contain only letters and numbers."
+        'Username must be at least 3 characters and contain only letters and numbers.',
       );
       return;
     }
 
     if (!validatePassword(password)) {
       setError(
-        "Password must be at least 6 characters, include at least one letter, one number, and a special character."
+        'Password must be at least 6 characters, include at least one letter, one number, and a special character.',
       );
       return;
     }
@@ -47,11 +47,11 @@ const LoginModal: React.FC<LoginModalProps> = ({ setIsLoginOpen }) => {
     const success = login(emailOrMobile, password);
 
     if (success) {
-      setError("");
-      navigate("/");
+      setError('');
+      navigate('/');
       setIsLoginOpen(false);
     } else {
-      setError("Invalid username or password.");
+      setError('Invalid username or password.');
     }
   };
 
@@ -69,7 +69,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ setIsLoginOpen }) => {
 
       {/* Google login button */}
       <div className="mx-5">
-        <button className="w-full border border-gray-300 rounded-md py-2 flex items-center justify-center gap-2 mb-6 hover:bg-gray-50">
+        <button className="cursor-pointer w-full border border-gray-300 rounded-md py-2 flex items-center justify-center gap-2 mb-6 hover:bg-gray-50">
           <FcGoogle />
           Continue with Google
         </button>
@@ -107,7 +107,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ setIsLoginOpen }) => {
         <label className="block mb-4 text-sm font-medium text-gray-700 relative">
           Password
           <input
-            type={showPassword ? "text" : "password"}
+            type={showPassword ? 'text' : 'password'}
             value={password}
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
               setPassword(e.target.value)
@@ -117,10 +117,11 @@ const LoginModal: React.FC<LoginModalProps> = ({ setIsLoginOpen }) => {
           />
           <button
             type="button"
-            onClick={() => setShowPassword(!showPassword)}
-            className="absolute top-2/3 right-3 -translate-y-1/2 text-gray-400 hover:text-gray-700 focus:outline-none"
-            aria-label={showPassword ? "Hide password" : "Show password"}
-          >
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+              setShowPassword((prev) => !prev)
+            }
+            className="cursor-pointer absolute top-2/3 right-3 -translate-y-1/2 text-gray-400 hover:text-gray-700 focus:outline-none"
+            aria-label={showPassword ? 'Hide password' : 'Show password'}>
             {showPassword ? <IoMdEyeOff size={22} /> : <IoMdEye size={22} />}
           </button>
         </label>
@@ -128,12 +129,11 @@ const LoginModal: React.FC<LoginModalProps> = ({ setIsLoginOpen }) => {
         <button
           type="submit"
           disabled={!isValid}
-          className={`w-full py-2 rounded-3xl text-white font-semibold mb-4 ${
+          className={`cursor-pointer w-full py-2 rounded-3xl text-white font-semibold mb-4 ${
             isValid
-              ? "bg-blue-600 hover:bg-blue-700"
-              : "bg-gray-300 cursor-not-allowed"
-          }`}
-        >
+              ? 'bg-blue-600 hover:bg-blue-700'
+              : 'bg-gray-300 cursor-not-allowed'
+          }`}>
           CONTINUE
         </button>
       </form>
@@ -145,12 +145,12 @@ const LoginModal: React.FC<LoginModalProps> = ({ setIsLoginOpen }) => {
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setAgree1(e.target.checked)
           }
-          className="mr-2 flex-shrink-0 accent-[#008cff] w-4.5 h-4.5"
+          className="cursor-pointer mr-2 flex-shrink-0 accent-[#008cff] w-4.5 h-4.5"
         />
         <span>
-          By signing in or creating an account, you agree to MakeMyTrip's{" "}
-          <span className="text-[#008cff]">Privacy Policy</span>,{" "}
-          <span className="text-[#008cff]">User Agreement</span> and{" "}
+          By signing in or creating an account, you agree to MakeMyTrip's{' '}
+          <span className="text-[#008cff]">Privacy Policy</span>,{' '}
+          <span className="text-[#008cff]">User Agreement</span> and{' '}
           <span className="text-[#008cff]">T&Cs</span>
         </span>
       </label>
@@ -162,7 +162,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ setIsLoginOpen }) => {
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setAgree2(e.target.checked)
           }
-          className="mr-2 mt-1 accent-[#008cff] w-6 h-6"
+          className="cursor-pointer mr-2 mt-1 accent-[#008cff] w-6 h-6"
         />
         I hereby allow MakeMyTrip to contact me regarding travel services, that
         may be of interest to me
