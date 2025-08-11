@@ -7,9 +7,9 @@ import Login from "./pages/Login";
 function App() {
   return (
     <div className="font-lato">
-      <div className="bg-amber-50 w-full container mx-auto px-4 lg:px-40">
+      {/* <div className="bg-amber-50 w-full container mx-auto px-4 lg:px-40">
         <Navbar />
-      </div>
+      </div> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />

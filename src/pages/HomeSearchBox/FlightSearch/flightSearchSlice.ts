@@ -184,21 +184,62 @@ const flightSearchSlice = createSlice({
     },
     incrementSegmentCount(state) {
       if (state.value === "multicity" && state.segmentCount < 5) {
-        state.segmentCount += 1;
+        const nextCount = state.segmentCount + 1;
+
+        // Replace arrays with slices of the initial arrays from your initialState
+        state.segmentCount = nextCount;
+        state.fromSegmentLists = initialState.fromSegmentLists.slice(
+          0,
+          nextCount
+        );
+        state.toSegmentLists = initialState.toSegmentLists.slice(0, nextCount);
+        state.departureDates = initialState.departureDates.slice(0, nextCount);
+        state.arrivalDates = initialState.arrivalDates.slice(0, nextCount);
       }
     },
     removeSegment(state, action: PayloadAction<number>) {
       const index = action.payload;
-      if (index >= 2 && index <= state.segmentCount) {
+      const lastIndex = state.segmentCount - 1;
+      if (index !== lastIndex || index === 0) return;
+      if (index >= 2) {
         state.fromSegmentLists.splice(index, 1);
         state.toSegmentLists.splice(index, 1);
         state.departureDates.splice(index, 1);
         state.arrivalDates.splice(index, 1);
-        state.segmentCount = Math.max(state.segmentCount - 1, 1);
-      } else {
-        // Instead of calling setValue reducer, just update value directly here
-        // state.value = "return";
-        // state.segmentCount = 1;
+        state.segmentCount = state.segmentCount - 1;
+      }
+    },
+    swapSegments(state, action: PayloadAction<number>) {
+      const index = action.payload;
+
+      // Validate index
+      if (
+        index >= 0 &&
+        index < state.fromSegmentLists.length &&
+        index < state.toSegmentLists.length
+      ) {
+        const temp = state.fromSegmentLists[index];
+        state.fromSegmentLists[index] = state.toSegmentLists[index];
+        state.toSegmentLists[index] = temp;
+      }
+    },
+    setFromSegmentAtIndex(
+      state,
+      action: PayloadAction<{ index: number; segment: Segment }>
+    ) {
+      const { index, segment } = action.payload;
+      if (index >= 0 && index < state.fromSegmentLists.length) {
+        state.fromSegmentLists[index] = segment;
+      }
+    },
+
+    setToSegmentAtIndex(
+      state,
+      action: PayloadAction<{ index: number; segment: Segment }>
+    ) {
+      const { index, segment } = action.payload;
+      if (index >= 0 && index < state.toSegmentLists.length) {
+        state.toSegmentLists[index] = segment;
       }
     },
   },
@@ -216,6 +257,9 @@ export const {
   setSegmentCount,
   incrementSegmentCount,
   removeSegment,
+  swapSegments,
+  setFromSegmentAtIndex,
+  setToSegmentAtIndex
 } = flightSearchSlice.actions;
 
 export default flightSearchSlice.reducer;

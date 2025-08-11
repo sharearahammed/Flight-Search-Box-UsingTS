@@ -1,10 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import AirportSelector from "./AirportSelector";
+import {
+  setFromSegmentAtIndex,
+  setToSegmentAtIndex,
+} from "../../flightSearchSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../../../store";
 
 interface InfoCardProps {
   label: string;
   city: string;
   airportInfo: string;
+  type: string;
+  index: number;
 }
 
 const InfoCard: React.FC<InfoCardProps> = ({
@@ -12,9 +20,13 @@ const InfoCard: React.FC<InfoCardProps> = ({
   city,
   airportInfo,
   type,
+  index,
 }) => {
+  const dispatch = useDispatch();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [openSearch, setOpenSearch] = useState<boolean>();
+    const fromSegmentLists = useSelector((state: RootState) => state.flightSearch.fromSegmentLists);
+  const toSegmentLists = useSelector((state: RootState) => state.flightSearch.toSegmentLists);
   const borderRadiusClass =
     type === "from"
       ? "rounded-tl-lg rounded-bl-lg"
@@ -36,6 +48,25 @@ const InfoCard: React.FC<InfoCardProps> = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+ const handleSelect = (airport: Segment) => {
+    if (type === "from") {
+      const currentTo = toSegmentLists[index];
+      if (currentTo && currentTo.code === airport.code) {
+        alert("From and To airports cannot be the same.");
+        return;
+      }
+      dispatch(setFromSegmentAtIndex({ index, segment: airport }));
+    } else {
+      const currentFrom = fromSegmentLists[index];
+      if (currentFrom && currentFrom.code === airport.code) {
+        alert("From and To airports cannot be the same.");
+        return;
+      }
+      dispatch(setToSegmentAtIndex({ index, segment: airport }));
+    }
+    setOpenSearch(false);
+  };
 
   return (
     <div
@@ -65,10 +96,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
         >
           <AirportSelector
             type={type}
-            onSelect={(airport: any) => {
-              console.log("Selected airport:", airport);
-              // You can dispatch Redux action here
-            }}
+            onSelect={handleSelect}
           />
         </div>
       )}

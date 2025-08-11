@@ -4,7 +4,13 @@ import InfoCard from "../components/SuggestionBox/InfoCard";
 import TravelersClassSelector from "../components/TravelersClassSelector";
 import { RootState } from "../../../../store";
 import * as React from "react";
-import { incrementSegmentCount, removeSegment } from "../flightSearchSlice";
+import {
+  incrementSegmentCount,
+  removeSegment,
+  setSegmentCount,
+  setValue,
+  swapSegments,
+} from "../flightSearchSlice";
 import { IoIosClose } from "react-icons/io";
 
 const SearchBox = () => {
@@ -43,9 +49,13 @@ const SearchBox = () => {
                   city={from?.cityName || ""}
                   airportInfo={from ? `${from.code}, ${from.name}` : ""}
                   type="from"
+                  index={i}
                 />
                 {/* Swap icon or other UI could go here */}
-                <div className="z-10 absolute top-9 right-[-20px] bg-[#fff] shadow-md p-4 rounded-3xl h-10 w-10 flex items-center justify-center cursor-pointer">
+                <div
+                  onClick={() => dispatch(swapSegments(i))}
+                  className="z-10 absolute top-9 right-[-20px] bg-[#fff] shadow-md p-4 rounded-3xl h-10 w-10 flex items-center justify-center cursor-pointer"
+                >
                   <span className="text-[#008cff]">⇌</span>
                 </div>
               </div>
@@ -57,6 +67,7 @@ const SearchBox = () => {
                   city={to?.cityName || ""}
                   airportInfo={to ? `${to.code}, ${to.name}` : ""}
                   type="to"
+                  index={i}
                 />
               </div>
 
@@ -94,23 +105,38 @@ const SearchBox = () => {
                   }`}
                 >
                   <div className="flex justify-between items-center px-8 h-28 rounded-tr-lg rounded-br-lg border border-[#e7e7e7] ">
-                    <div
-                      onClick={() => dispatch(incrementSegmentCount())}
-                      className="col-span-3 text-[15px] text-[#008cff] border px-3 py-1 rounded-sm font-semibold shadow-xl cursor-pointer
-]"
-                    >
-                      + ADD ANOTHER CITY
-                    </div>
-                    <div className="border-l border-[#e7e7e7] h-[100px] flex justify-center items-center">
+                    {i !== 0 && i === segmentCount - 1 && (
                       <div
-                        onClick={(e: React.MouseEvent<HTMLDivElement>) => {
-                          dispatch(removeSegment(i));
+                        onClick={() => {
+                          if (i !== 4) {
+                            dispatch(incrementSegmentCount());
+                          }
                         }}
-                        className="bg-gray-400 flex justify-center items-center rounded-3xl h-[28px] w-[28px] ml-8 cursor-pointer"
+                        className={`col-span-3 text-[15px] text-[#008cff] px-3 py-1 rounded-sm font-semibold i === 4 ? "shadow-none" : "shadow-xl"  cursor-pointer ${
+                          i === 4 ? "border-none" : "border"
+                        }`}
                       >
-                        <IoIosClose className="text-white text-2xl" />
+                        {" "}
+                        {i === 4 ? "" : " + ADD ANOTHER CITY"}
                       </div>
-                    </div>
+                    )}
+                    {i !== 0 && i === segmentCount - 1 && (
+                      <div className="border-l border-[#e7e7e7] h-[100px] flex justify-center items-center">
+                        <div
+                          onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+                            if (segmentCount === 2) {
+                              dispatch(setValue("return"));
+                              dispatch(setSegmentCount(1));
+                            } else {
+                              dispatch(removeSegment(i));
+                            }
+                          }}
+                          className="bg-gray-400 flex justify-center items-center rounded-3xl h-[28px] w-[28px] ml-8 cursor-pointer"
+                        >
+                          <IoIosClose className="text-white text-2xl" />
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
