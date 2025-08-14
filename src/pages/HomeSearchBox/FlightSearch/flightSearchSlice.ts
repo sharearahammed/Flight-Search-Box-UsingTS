@@ -24,6 +24,7 @@ interface FlightSearchState {
   departureDates: string[];
   arrivalDates: string[];
   segmentCount: number;
+  travelClass: string;
 }
 
 const now = new Date();
@@ -148,6 +149,7 @@ const initialState: FlightSearchState = {
   departureDates: initialFromDates,
   arrivalDates: initialToDates,
   segmentCount: 1,
+  travelClass: "Economy/Premium Economy",
 };
 
 const flightSearchSlice = createSlice({
@@ -166,7 +168,9 @@ const flightSearchSlice = createSlice({
     setValue(state, action) {
       state.value = action.payload;
     },
-
+    setTravelClass: (state, action: PayloadAction<string>) => {
+      state.travelClass = action.payload;
+    },
     setFromSegmentLists(state, action: PayloadAction<Segment[]>) {
       state.fromSegmentLists = action.payload;
     },
@@ -259,7 +263,8 @@ export const {
   removeSegment,
   swapSegments,
   setFromSegmentAtIndex,
-  setToSegmentAtIndex
+  setToSegmentAtIndex,
+  setTravelClass,
 } = flightSearchSlice.actions;
 
 export default flightSearchSlice.reducer;

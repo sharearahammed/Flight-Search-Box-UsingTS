@@ -15,18 +15,27 @@ interface InfoCardProps {
   index: number;
 }
 
-const InfoCard: React.FC<InfoCardProps> = ({
-  label,
-  city,
-  airportInfo,
-  type,
-  index,
-}) => {
+interface Segment {
+  id: string;
+  code: string;
+  cityCode: string;
+  cityName: string;
+  countryName: string;
+  name: string; // airport name
+}
+
+
+const InfoCard: React.FC<InfoCardProps> = (props: InfoCardProps) => {
+  const { label, city, airportInfo, type, index } = props;
   const dispatch = useDispatch();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [openSearch, setOpenSearch] = useState<boolean>();
-    const fromSegmentLists = useSelector((state: RootState) => state.flightSearch.fromSegmentLists);
-  const toSegmentLists = useSelector((state: RootState) => state.flightSearch.toSegmentLists);
+  const fromSegmentLists = useSelector(
+    (state: RootState) => state.flightSearch.fromSegmentLists
+  );
+  const toSegmentLists = useSelector(
+    (state: RootState) => state.flightSearch.toSegmentLists
+  );
   const borderRadiusClass =
     type === "from"
       ? "rounded-tl-lg rounded-bl-lg"
@@ -49,13 +58,14 @@ const InfoCard: React.FC<InfoCardProps> = ({
     };
   }, []);
 
- const handleSelect = (airport: Segment) => {
+  const handleSelect = (airport: Segment) => {
     if (type === "from") {
       const currentTo = toSegmentLists[index];
       if (currentTo && currentTo.code === airport.code) {
         alert("From and To airports cannot be the same.");
         return;
       }
+      
       dispatch(setFromSegmentAtIndex({ index, segment: airport }));
     } else {
       const currentFrom = fromSegmentLists[index];
@@ -71,7 +81,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
   return (
     <div
       ref={wrapperRef}
-      onClick={() => {
+      onClick={(e: React.MouseEvent<HTMLDivElement>) => {
         setOpenSearch(!openSearch);
       }}
       className={`relative h-28 bg-white p-4 border border-[#e7e7e7] hover:bg-[#eaf5ff] cursor-pointer ${borderRadiusClass} ${
@@ -94,10 +104,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
           }}
           className="absolute w-full left-0 z-20"
         >
-          <AirportSelector
-            type={type}
-            onSelect={handleSelect}
-          />
+          <AirportSelector type={type} onSelect={handleSelect} />
         </div>
       )}
     </div>

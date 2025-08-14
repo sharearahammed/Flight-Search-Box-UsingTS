@@ -12,7 +12,9 @@ function App() {
       </div> */}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login setIsLoginOpen={function (value: boolean): void {
+          throw new Error("Function not implemented.");
+        } } />} />
       </Routes>
     </div>
   );
