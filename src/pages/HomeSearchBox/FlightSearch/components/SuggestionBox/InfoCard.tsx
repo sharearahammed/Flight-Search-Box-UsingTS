@@ -24,7 +24,6 @@ interface Segment {
   name: string; // airport name
 }
 
-
 const InfoCard: React.FC<InfoCardProps> = (props: InfoCardProps) => {
   const { label, city, airportInfo, type, index } = props;
   const dispatch = useDispatch();
@@ -65,7 +64,7 @@ const InfoCard: React.FC<InfoCardProps> = (props: InfoCardProps) => {
         alert("From and To airports cannot be the same.");
         return;
       }
-      
+
       dispatch(setFromSegmentAtIndex({ index, segment: airport }));
     } else {
       const currentFrom = fromSegmentLists[index];
@@ -89,7 +88,14 @@ const InfoCard: React.FC<InfoCardProps> = (props: InfoCardProps) => {
       }`}
     >
       <div>
-        <div className="text-sm mb-1 text-gray-500">{label}</div>
+        <div
+          className={`text-sm mb-1 ${
+            openSearch ? "text-[#008cff]" : "text-gray-500"
+          }`}
+        >
+          {label}
+        </div>
+
         <div className="text-3xl font-bold">{city}</div>
         <div className="text-sm mt-0.5 text-gray-500">
           {airportInfo.length > 38

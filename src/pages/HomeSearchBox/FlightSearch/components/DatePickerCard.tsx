@@ -67,9 +67,13 @@ const DatePickerCard: React.FC<DatePickerCardProps> = ({
     >
       <div className="flex justify-between">
         <div className="text-sm text-black mb-1 flex items-center gap-1">
-          <span className="text-gray-500">{label}</span>{" "}
+          <div className={`text-sm mb-1 ${open ? "text-[#008cff]" : "text-gray-500"}`}>
+  {label}
+</div>
+
           <span>
-            <IoIosArrowDown className="text-[#008cff] text-lg" />
+            <IoIosArrowDown className={`text-lg ${open ? "text-[#008cff]" : "text-gray-500"}`} />
+              
           </span>
         </div>
         {tripType === "return" && label === "Return" && (
