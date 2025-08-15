@@ -11,7 +11,7 @@ const HomeSearchBox = () => {
   const activeColor = "#008cff";
 
   return (
-    <div>
+    <div className="mt-2">
       <div className="flex items-center justify-center shadow-md mb-[-60px]">
         <div className="flex gap-17 bg-white items-center justify-center py-4 rounded-md w-86 shadow-sm">
           <div

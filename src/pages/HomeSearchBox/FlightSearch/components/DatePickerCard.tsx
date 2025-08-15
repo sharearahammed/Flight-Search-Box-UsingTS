@@ -63,17 +63,22 @@ const DatePickerCard: React.FC<DatePickerCardProps> = ({
     <div
       ref={pickerRef}
       onClick={(e: React.MouseEvent<HTMLDivElement>) => setOpen(!open)}
-      className="relative bg-white hover:bg-[#eaf5ff] p-4 border border-[#e7e7e7] cursor-pointer select-none h-28"
+      className="relative bg-white hover:bg-[#eaf5ff] py-4 px-4 lg:px-3 xl:p-4 border border-[#e7e7e7] cursor-pointer select-none h-28"
     >
       <div className="flex justify-between">
         <div className="text-sm text-black mb-1 flex items-center gap-1">
-          <div className={`text-sm mb-1 ${open ? "text-[#008cff]" : "text-gray-500"}`}>
-  {label}
-</div>
+          <div
+            className={`text-sm mb-1 ${
+              open ? "text-[#008cff]" : "text-gray-500"
+            }`}
+          >
+            {label}
+          </div>
 
           <span>
-            <IoIosArrowDown className={`text-lg ${open ? "text-[#008cff]" : "text-gray-500"}`} />
-              
+            <IoIosArrowDown
+              className={`text-lg ${open ? "text-[#008cff]" : "text-gray-500"}`}
+            />
           </span>
         </div>
         {tripType === "return" && label === "Return" && (
@@ -96,7 +101,7 @@ const DatePickerCard: React.FC<DatePickerCardProps> = ({
             dispatch(setValue("return"));
           }}
         >
-          <p className="text-[#9b9b9b] text-[12px] font-bold">
+          <p className="text-[#9b9b9b] lg:text-[10px] xl:text-[12px] font-bold">
             {" "}
             Tap to add a return date for bigger discounts
           </p>
@@ -104,10 +109,16 @@ const DatePickerCard: React.FC<DatePickerCardProps> = ({
       ) : (
         <div>
           <div className="flex items-center gap-1 mt-1 text-sm text-gray-600">
-            <span className="text-3xl font-semibold text-gray-900">{day}</span>
-            <span className="text-lg text-black mt-2">{monthYear}</span>
+            <span className="text-xl lg:text-xl xl:text-3xl font-semibold text-gray-900">
+              {day}
+            </span>
+            <span className="text-sm lg:text-xs xl:text-lg text-black mt-2">
+              {monthYear}
+            </span>
           </div>
-          <div className="text-gray-500 text-sm mt-1">{formattedDay}</div>
+          <div className="text-gray-500 text-xs lg:text-xs xl:text-sm mt-1">
+            {formattedDay}
+          </div>
         </div>
       )}
 

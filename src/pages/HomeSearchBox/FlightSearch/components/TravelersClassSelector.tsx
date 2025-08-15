@@ -73,11 +73,19 @@ const TravelersClassSelector: React.FC<TravelersClassSelectorProps> = (
           </span>
         </div>
         <div className="text-lg text-gray-900">
-          <span className="text-3xl font-semibold mr-2"> {travellers}</span>
+          <span className="text-xl lg:text-xl xl:text-3xl font-semibold mr-2">
+            {" "}
+            {travellers}
+          </span>
           Traveller{" "}
-          <span className="text-xl"> {travellers > 1 ? "s" : ""}</span>
+          <span className="text-xs lg:text-sm xl:text-xl">
+            {" "}
+            {travellers > 1 ? "s" : ""}
+          </span>
         </div>
-        <div className="text-sm text-gray-600 mt-0.5">{classType}</div>
+        <div className="text-xs lg:text-sm text-gray-600 mt-0.5">
+          {classType}
+        </div>
       </div>
       {openSearch && (
         <div

@@ -83,8 +83,8 @@ const InfoCard: React.FC<InfoCardProps> = (props: InfoCardProps) => {
       onClick={(e: React.MouseEvent<HTMLDivElement>) => {
         setOpenSearch(!openSearch);
       }}
-      className={`relative h-28 bg-white p-4 border border-[#e7e7e7] hover:bg-[#eaf5ff] cursor-pointer ${borderRadiusClass} ${
-        type === "to" ? "pl-10" : ""
+      className={`relative h-28 bg-white py-4 px-4 lg:px-3 xl:p-4 border border-[#e7e7e7] hover:bg-[#eaf5ff] cursor-pointer ${borderRadiusClass} ${
+        type === "to" ? "lg:pl-6 xl:pl-10" : ""
       }`}
     >
       <div>
@@ -96,8 +96,8 @@ const InfoCard: React.FC<InfoCardProps> = (props: InfoCardProps) => {
           {label}
         </div>
 
-        <div className="text-3xl font-bold">{city}</div>
-        <div className="text-sm mt-0.5 text-gray-500">
+        <div className="text-xl lg:text-xl xl:text-3xl font-bold">{city}</div>
+        <div className="text-xs lg:text-xs xl:text-sm mt-0.5 text-gray-500">
           {airportInfo.length > 38
             ? airportInfo.slice(0, 38) + "..."
             : airportInfo}

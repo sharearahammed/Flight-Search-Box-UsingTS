@@ -43,7 +43,7 @@ const SearchBox = () => {
           return (
             <React.Fragment key={i}>
               {/* From */}
-              <div className="col-span-4 relative mb-3">
+              <div className="col-span-4 lg:col-span-3 xl:col-span-4 relative mb-3">
                 <InfoCard
                   label={segmentCount > 1 ? `From ${i + 1}` : "From"}
                   city={from?.cityName || ""}
@@ -61,7 +61,7 @@ const SearchBox = () => {
               </div>
 
               {/* To */}
-              <div className="col-span-4">
+              <div className="col-span-4 lg:col-span-3 xl:col-span-4">
                 <InfoCard
                   label={segmentCount > 1 ? `To ${i + 1}` : "To"}
                   city={to?.cityName || ""}
@@ -72,13 +72,13 @@ const SearchBox = () => {
               </div>
 
               {/* Departure Date */}
-              <div className="col-span-2">
+              <div className="col-span-4 lg:col-span-3 xl:col-span-2">
                 <DatePickerCard label="Departure" tripType={selected} />
               </div>
 
               {/* Return Date only if not multicity and only on first segment */}
               {selected !== "multicity" && i === 0 && (
-                <div className="col-span-2">
+                <div className="col-span-4 lg:col-span-3 xl:col-span-2">
                   <DatePickerCard tripType={selected} label="Return" />
                 </div>
               )}
@@ -148,10 +148,9 @@ const SearchBox = () => {
       {/* Search button */}
       <div className="flex justify-center items-center pt-10 mb-[-95px] cursor-pointer">
         <p
-          className="text-white font-semibold text-center py-1.5 rounded-3xl text-2xl"
+          className="text-white font-semibold text-center py-1.5 rounded-3xl text-sm lg:text-xl xl:text-2xl w-[110px] lg:w-[200px] xl:w-[216px]"
           style={{
             backgroundImage: "linear-gradient(96deg, #53b2fe, #065af3)",
-            width: "216px",
           }}
         >
           SEARCH

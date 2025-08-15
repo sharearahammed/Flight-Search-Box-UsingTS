@@ -24,7 +24,7 @@ const Navbar = () => {
         {!user && (
           <button
             onClick={() => setIsLoginOpen(true)}
-            className="hover:underline cursor-pointer flex gap-2 items-center justify-center text-white text-[18px]"
+            className="hover:underline cursor-pointer flex gap-2 items-center justify-center text-white text-[14px] lg:text-[18px]"
           >
             <IoIosLogIn />
             Login
