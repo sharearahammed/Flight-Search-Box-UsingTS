@@ -90,7 +90,6 @@ const SearchBox = () => {
                   }`}
                 >
                   <TravelersClassSelector
-                    travellers={1}
                     classType="Economy/Premium"
                     // onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                     //   console.log("Open selector");

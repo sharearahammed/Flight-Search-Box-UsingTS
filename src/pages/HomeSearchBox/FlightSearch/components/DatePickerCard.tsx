@@ -123,7 +123,7 @@ const DatePickerCard: React.FC<DatePickerCardProps> = ({
       )}
 
       {open && (
-        <div className="absolute z-50 top-full mt-2 bg-white rounded-lg shadow-lg p-2">
+        <div className="absolute z-50 top-full mt-2 bg-white rounded-lg shadow-lg p-2 left-[-10px] lg:left-0">
           <DayPicker
             mode="single"
             selected={selected}
